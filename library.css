@@ -47,6 +47,11 @@ img{
 	padding-bottom: 20px;
 }
 
+.selected{
+	color: #123C69;
+
+}
+
 .stripe button{
 	background: #123C69;
 	color: white;
@@ -69,7 +74,6 @@ img{
 }
 
 .container{
-
 	margin: auto;
 	width: 80%;
 	height: 500px;

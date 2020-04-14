@@ -48,7 +48,7 @@ function addLoginListener(){
 		console.log(filterValue(users,"name",username).name === username)
 		if(filterValue(users,"name",username).name === username){
 			usernameMessage.textContent = "Welcome back, " + username + "!";
-		} else{
+		} else {
 			usernameMessage.textContent = "Welcome, looks like you're new!";
 		}
 		event.preventDefault();
@@ -74,27 +74,34 @@ function addmenuButtonsListener(){
 			if(this.textContent==='View Library Catalog'){
 				reset()
 				displayLibraryBooks();
+				this.classList.add("selected")
 				messageDisplay.innerHTML="<h2>Currently: Viewing The Full Library Catalog</h2>"
 			} else if (this.textContent==='View My Checked Out Books'){
 				reset()
 				displayMyBooks();
+				this.classList.add("selected")
 				messageDisplay.innerHTML="<h2>Currently: Viewing Your Checked Out Books</h2>"
 			} else if(this.textContent==='Check Out a Book'){
 				reset()
+				this.classList.add("selected")
 				messageDisplay.innerHTML="<h2>Currently: Checking Out A Book</h2>"
 			} else if(this.textContent==='Return a Book'){
 				reset()
+				this.classList.add("selected")
 				messageDisplay.innerHTML="<h2>Currently: Returning a Book</h2>"
 			} else if(this.innerHTML==="<i class=\"fas fa-home\" aria-hidden=\"true\"></i>"){
 				reset()
+				this.classList.add("selected")
 				messageDisplay.innerHTML="<h2>WHAT DO YOU WANT TO DO?</h2>"
 			} else if(this.innerHTML==="<i class=\"fas fa-pencil-alt\" aria-hidden=\"true\"></i>"){
 				reset()
+				this.classList.add("selected")
 				messageDisplay.innerHTML="<h2>LIBRARY ADMIN PANEL</h2>"
 			}
 		})
 	}
 }
+
 
 // if the user clicks on the button of a book title, show book details
 function addBookListener(){
@@ -108,11 +115,7 @@ function addBookListener(){
 			secondaryMessageDisplay.innerHTML += "<br><strong>Author</strong>: " + currentBook.author;
 			secondaryMessageDisplay.innerHTML += "<br><strong>Current Location</strong>: " + currentBook.location +"<br><br>";
 
-			if(currentBook.location === 'Library'){
-				secondaryMessageDisplay.innerHTML  += "<button>Check Out?</button></div></div>";
-			} else {
-				secondaryMessageDisplay.innerHTML  += "<button>Request?</button></div></div>";
-			}
+			displayCheckOrRequest();
 
 			secondaryMessageDisplay.innerHTML  += "<br><br><img src='" + currentBook.img +  "'></div>";
 			
@@ -120,11 +123,29 @@ function addBookListener(){
 	}
 }
 
+function displayCheckOrRequest(){
+
+	if(menuButtons[2].classList.contains("selected")){
+		secondaryMessageDisplay.innerHTML  = "<button>Return?</button></div></div>"
+	} else if(menuButtons[1].classList.contains("selected")){
+		if(currentBook.location === 'Library'){
+		secondaryMessageDisplay.innerHTML  = "<button>Check Out?</button></div></div>";
+		} else {
+			secondaryMessageDisplay.innerHTML  += "<button>Request?</button></div></div>";
+		}
+	}
+	
+}
+
 
 function reset(){
 	secondaryButtonsDiv.innerHTML = "";
 	secondaryHeader.innerHTML="";
 	secondaryMessageDisplay.innerHTML = "";
+
+	for(var i = 0; i < menuButtons.length; i++ ){
+		menuButtons[i].classList.remove("selected")
+	}
 }
 
 function displayLibraryBooks(){ 
@@ -152,6 +173,7 @@ function displayMyBooks(){
 			secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"fas fa-book\"></i>"+myBooks[i].title+"</button>";
 		}
 	}
+	addBookListener();
 	
 }
 
