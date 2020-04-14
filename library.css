@@ -38,6 +38,11 @@ strong{
 	font-weight: 700;
 }
 
+img{
+	width: 50%;
+	padding-bottom: 20px;
+}
+
 .stripe button{
 	background: #123C69;
 	color: white;

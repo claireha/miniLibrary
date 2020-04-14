@@ -17,11 +17,11 @@ var karen = {name:"karen", books:{}};
 var harley = {name:"harley", books:{}};
 
 // Hardcoded books
-var book1 = {title:"How To Kill a Mockingbird", author:"hi", requestedBy:{}, location:"Library", checkedOutBy: "Library"};
-var book2 = {title:"Tom Sawyer", author:"hi", requestedBy:{}, location:"Library", checkedOutBy: "Library"};
-var book3 = {title:"Harry Potter", author:"hello", requestedBy:{}, location:"Library", checkedOutBy: "Library"};
-var book4 = {title:"Shoe Dogs", author:"hi2", requestedBy:{}, location:"Library", checkedOutBy: "Library"};
-var book5 = {title:"Sapiens", author:"hi4", requestedBy:{}, location:"Library", checkedOutBy: "Library"};
+var book1 = {title:"Dracula", author:"Bram Stoker", requestedBy:{}, location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/NqQICa118fuVFZGBcmvj_rockpaperbooks2.png"};
+var book2 = {title:"20,000 Leagues Under the Sea", author:"Jules Verne", requestedBy:{}, location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/VrF4oKsKXgppOL9-0CMQ_rockpaperbooks3.png"};
+var book3 = {title:"The Art of War", author:"Sun Tzu", requestedBy:{}, location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/bAdLK-I9VWXA9otlXyWL_rockpaperbooks5.png"};
+var book4 = {title:"Moby Dick", author:"Herman Melville", requestedBy:{}, location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/5YIh-o2i55cRUR8KfsNX_rockpaperbooks10.png"};
+var book5 = {title:"The Odyssey", author:"Homer", requestedBy:{}, location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/7vca9hzJahOi2CuQ3E9y_rockpaperbooks14.png"};
 
 
 // Hardcoded array for users and library Books
@@ -89,12 +89,17 @@ function addBookListener(){
 			currentBook = filterValue(libraryBooks,"title",this.textContent);
 
 			secondaryHeader.innerHTML="<h2>" + currentBook.title + "</h2>"
-			secondaryMessageDisplay.innerHTML = "<strong>Title</strong>: " + currentBook.title;
+			secondaryMessageDisplay.innerHTML = "<img src='" + currentBook.img +  "'>";
+			secondaryMessageDisplay.innerHTML += "<br><strong>Title</strong>: " + currentBook.title;
 			secondaryMessageDisplay.innerHTML += "<br><strong>Author</strong>: " + currentBook.author;
-			secondaryMessageDisplay.innerHTML += "<br><strong>Current Location</strong>: " + currentBook.location;
+			secondaryMessageDisplay.innerHTML += "<br><strong>Current Location</strong>: " + currentBook.location +"<br><br>";
 
-
-
+			if(currentBook.location === 'Library'){
+				secondaryMessageDisplay.innerHTML += "<button>Check Out?</button>";
+			} else {
+				secondaryMessageDisplay.innerHTML += "<button>Request?</button>";
+			}
+			
 		})
 	}
 }
