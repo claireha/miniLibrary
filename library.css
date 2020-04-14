@@ -7,6 +7,10 @@ body{
 	color: #123C69;;
 }
 
+h2{
+	margin-bottom: 10px;
+}
+
 input{
 	outline: none;
 	background: white;
@@ -103,5 +107,8 @@ img{
 #secondaryMessageDisplay{
 	text-transform: none;
 	font-family: Open Sans;
+	justify-content: center;
+	align-items: center;
+	align-content: center; 
 }
 
