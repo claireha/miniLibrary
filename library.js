@@ -102,7 +102,6 @@ function addmenuButtonsListener(){
 }
 
 
-// if the user clicks on the button of a book title, show book details
 function addBookListener(){
 
 	books = document.querySelectorAll(".books");
@@ -129,7 +128,7 @@ function displayCheckOrRequest(){
 		secondaryMessageDisplay.innerHTML  = "<button>Return?</button></div></div>"
 	} else if(menuButtons[1].classList.contains("selected")){
 		if(currentBook.location === 'Library'){
-		secondaryMessageDisplay.innerHTML  = "<button>Check Out?</button></div></div>";
+		secondaryMessageDisplay.innerHTML  += "<button>Check Out?</button></div></div>";
 		} else {
 			secondaryMessageDisplay.innerHTML  += "<button>Request?</button></div></div>";
 		}
