@@ -61,7 +61,7 @@ function addLoginListener(){
 function createNewUser(){
 	signupButton.addEventListener('click',function(){
 			var newUsername= prompt("Please enter your username", "");
-			var newUser = {name:newUsername, books:{}};
+			var newUser = {name:newUsername, books:[]};
 			users.push(newUser)
 			username = newUsername;
 			usernameMessage.textContent = "Welcome to the library, " + username + "!";
@@ -142,10 +142,17 @@ function displayLibraryBooks(){
 
 function displayMyBooks(){
 
-	var myBooks = filterValue(users,"name",username).books 
-	for(var i=0; i < myBooks.length; i++){
-		secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"fas fa-book\"></i>"+myBooks[i].title+"</button>";
+	if(filterValue(users,"name",username) === undefined){
+		secondaryButtonsDiv.innerHTML += "<br>You have no books!"
+	} else if (filterValue(users,"name",username).books.length === 0){
+		secondaryButtonsDiv.innerHTML += "<br>You have no books!"
+	} else {
+		var myBooks = filterValue(users,"name",username).books 
+		for(var i=0; i < myBooks.length; i++){
+			secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"fas fa-book\"></i>"+myBooks[i].title+"</button>";
+		}
 	}
+	
 }
 
 // function displayBookDetails(){
