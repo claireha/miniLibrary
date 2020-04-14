@@ -1,5 +1,5 @@
 // Declare variables 
-var username;
+var username = document.querySelector("#usernameForm").elements.namedItem("username").value;
 var usernameSubmit = document.querySelector("button");
 var usernameMessage = document.querySelector("#usernameMessage");
 var usernameForm = document.querySelector("#usernameForm");
@@ -9,21 +9,21 @@ var messageDisplay = document.querySelector("#messageDisplay");
 var books = document.querySelectorAll(".books");
 var secondaryHeader = document.querySelector("#secondaryHeader");
 var secondaryMessageDisplay = document.querySelector("#secondaryMessageDisplay");
-var left = document.querySelector("#left");
-var right = document.querySelector("#right");
-
-// Hardcoded users 
-var mike = {name:"mike", books:{}};
-var claire = {name:"claire", books:{}};
-var karen = {name:"karen", books:{}};
-var harley = {name:"harley", books:{}};
+var signupButton = document.querySelector("#signup");
 
 // Hardcoded books
-var book1 = {title:"Dracula", author:"Bram Stoker", requestedBy:{}, location:"Checked Out", checkedOutBy: "Mike", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/NqQICa118fuVFZGBcmvj_rockpaperbooks2.png"};
-var book2 = {title:"20,000 Leagues Under the Sea", author:"Jules Verne", requestedBy:{}, location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/VrF4oKsKXgppOL9-0CMQ_rockpaperbooks3.png"};
+var book1 = {title:"Dracula", author:"Bram Stoker", requestedBy:{}, location:"Checked Out", checkedOutBy: "mike", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/NqQICa118fuVFZGBcmvj_rockpaperbooks2.png"};
+var book2 = {title:"20,000 Leagues Under the Sea", author:"Jules Verne", requestedBy:{}, location:"Checked Out", checkedOutBy: "karen", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/VrF4oKsKXgppOL9-0CMQ_rockpaperbooks3.png"};
 var book3 = {title:"The Art of War", author:"Sun Tzu", requestedBy:{}, location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/bAdLK-I9VWXA9otlXyWL_rockpaperbooks5.png"};
-var book4 = {title:"Moby Dick", author:"Herman Melville", requestedBy:{}, location:"Checked Out", checkedOutBy: "Karen", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/5YIh-o2i55cRUR8KfsNX_rockpaperbooks10.png"};
+var book4 = {title:"Moby Dick", author:"Herman Melville", requestedBy:{}, location:"Checked Out", checkedOutBy: "karen", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/5YIh-o2i55cRUR8KfsNX_rockpaperbooks10.png"};
 var book5 = {title:"The Odyssey", author:"Homer", requestedBy:{}, location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/7vca9hzJahOi2CuQ3E9y_rockpaperbooks14.png"};
+
+
+// Hardcoded users 
+var mike = {name:"mike", books:[book1]};
+var claire = {name:"claire", books:[]};
+var karen = {name:"karen", books:[book4, book2]};
+var harley = {name:"harley", books:[]};
 
 
 // Hardcoded array for users and library Books
@@ -36,7 +36,6 @@ init();
 function init(){
 	addLoginListener();
 	addmenuButtonsListener();
-
 }
 
 function filterValue(obj, key, value) {
@@ -46,13 +45,27 @@ function filterValue(obj, key, value) {
 function addLoginListener(){
 	usernameForm.addEventListener('submit', function(){
 		username = document.querySelector("#usernameForm").elements.namedItem("username").value;
-		if(filterValue(users,"name",username)){
+		console.log(filterValue(users,"name",username).name === username)
+		if(filterValue(users,"name",username).name === username){
 			usernameMessage.textContent = "Welcome back, " + username + "!";
 		} else{
 			usernameMessage.textContent = "Welcome, looks like you're new!";
 		}
 		event.preventDefault();
 	})
+
+	createNewUser();
+	
+}
+
+function createNewUser(){
+	signupButton.addEventListener('click',function(){
+			var newUsername= prompt("Please enter your username", "");
+			var newUser = {name:newUsername, books:{}};
+			users.push(newUser)
+			username = newUsername;
+			usernameMessage.textContent = "Welcome to the library, " + username + "!";
+		})
 }
 
 function addmenuButtonsListener(){
@@ -64,6 +77,7 @@ function addmenuButtonsListener(){
 				messageDisplay.innerHTML="<h2>Currently: Viewing The Full Library Catalog</h2>"
 			} else if (this.textContent==='View My Checked Out Books'){
 				reset()
+				displayMyBooks();
 				messageDisplay.innerHTML="<h2>Currently: Viewing Your Checked Out Books</h2>"
 			} else if(this.textContent==='Check Out a Book'){
 				reset()
@@ -114,10 +128,24 @@ function reset(){
 }
 
 function displayLibraryBooks(){ 
+
 	for(var i=0; i < libraryBooks.length; i++){
-		secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"fas fa-book\"></i>"+libraryBooks[i].title+"</button>";
+		if(libraryBooks[i].checkedOutBy==="Library"){
+			secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"fas fa-book\"></i>"+libraryBooks[i].title+"</button>";
+		} else {
+			secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"far fa-times-circle\"></i>"+libraryBooks[i].title+"</button>";
+		}
 	}
 	addBookListener();
+
+}
+
+function displayMyBooks(){
+
+	var myBooks = filterValue(users,"name",username).books 
+	for(var i=0; i < myBooks.length; i++){
+		secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"fas fa-book\"></i>"+myBooks[i].title+"</button>";
+	}
 }
 
 // function displayBookDetails(){
