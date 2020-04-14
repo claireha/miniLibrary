@@ -6,6 +6,5 @@ You can view it here: [claireha.github.io/miniLibrary](https://claireha.github.i
 
 **Credits:** 
 * Font Awesome
-* 
 * [Book Cover Illustrations](https://mymodernmet.com/rock-paper-books-classics-covers/)
 * [Color Scheme](https://visme.co/blog/website-color-schemes/)
