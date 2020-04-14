@@ -75,20 +75,20 @@ function addmenuButtonsListener(){
 				reset()
 				displayLibraryBooks();
 				this.classList.add("selected")
-				messageDisplay.innerHTML="<h2>Currently: Viewing The Full Library Catalog</h2>"
+				messageDisplay.innerHTML="<h2>Click a book for more details</h2>"
 			} else if (this.textContent==='View My Checked Out Books'){
 				reset()
 				displayMyBooks();
 				this.classList.add("selected")
-				messageDisplay.innerHTML="<h2>Currently: Viewing Your Checked Out Books</h2>"
+				messageDisplay.innerHTML="<h2>These are the books you checked out</h2>"
 			} else if(this.textContent==='Check Out a Book'){
 				reset()
 				this.classList.add("selected")
-				messageDisplay.innerHTML="<h2>Currently: Checking Out A Book</h2>"
+				messageDisplay.innerHTML="<h2>Want to check out a book?</h2>"
 			} else if(this.textContent==='Return a Book'){
 				reset()
 				this.classList.add("selected")
-				messageDisplay.innerHTML="<h2>Currently: Returning a Book</h2>"
+				messageDisplay.innerHTML="<h2>Want to return a book?</h2>"
 			} else if(this.innerHTML==="<i class=\"fas fa-home\" aria-hidden=\"true\"></i>"){
 				reset()
 				this.classList.add("selected")
@@ -105,6 +105,7 @@ function addmenuButtonsListener(){
 
 // if the user clicks on the button of a book title, show book details
 function addBookListener(){
+
 	books = document.querySelectorAll(".books");
 	for(var i=0; i < books.length; i++){
 		books[i].addEventListener('click',function(){
