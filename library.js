@@ -75,28 +75,27 @@ function addmenuButtonsListener(){
 				reset()
 				displayLibraryBooks();
 				this.classList.add("selected")
-				messageDisplay.innerHTML="<h2>Click a book for more details</h2>"
-			} else if (this.textContent==='View My Checked Out Books'){
+				messageDisplay.innerHTML="<h2>Select a book to check out or request!</h2>"
+			} else if (this.textContent==='View/Return Books'){
 				reset()
 				displayMyBooks();
 				this.classList.add("selected")
-				messageDisplay.innerHTML="<h2>These are the books you checked out</h2>"
-			} else if(this.textContent==='Check Out a Book'){
+				messageDisplay.innerHTML="<h2>Select a book to view or return!</h2>"
+			} else if(this.textContent==='Donate A Book'){
 				reset()
 				this.classList.add("selected")
-				messageDisplay.innerHTML="<h2>Want to check out a book?</h2>"
-			} else if(this.textContent==='Return a Book'){
-				reset()
-				this.classList.add("selected")
-				messageDisplay.innerHTML="<h2>Want to return a book?</h2>"
+				messageDisplay.innerHTML="<h2>Want to donate a book to the library?</h2>"
+				secondaryButtonsDiv.innerHTML += "<br>Coming soon, you will be able to add your own books to the library!"
 			} else if(this.innerHTML==="<i class=\"fas fa-home\" aria-hidden=\"true\"></i>"){
 				reset()
 				this.classList.add("selected")
 				messageDisplay.innerHTML="<h2>WHAT DO YOU WANT TO DO?</h2>"
+				secondaryButtonsDiv.innerHTML += "<br>Select a button to do something in the library."
 			} else if(this.innerHTML==="<i class=\"fas fa-pencil-alt\" aria-hidden=\"true\"></i>"){
 				reset()
 				this.classList.add("selected")
 				messageDisplay.innerHTML="<h2>LIBRARY ADMIN PANEL</h2>"
+				secondaryButtonsDiv.innerHTML += "<br>Coming soon, you will be able to remove books and library card holders!"
 			}
 		})
 	}
