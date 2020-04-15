@@ -1,6 +1,5 @@
 // Declare Login/Sign Up Variables 
-var username = 'karen'
-// var username = document.querySelector("#usernameForm").elements.namedItem("username").value;
+var username = document.querySelector("#usernameForm").elements.namedItem("username").value;
 var usernameSubmit = document.querySelector("button");
 var usernameMessage = document.querySelector("#usernameMessage");
 var usernameForm = document.querySelector("#usernameForm");
