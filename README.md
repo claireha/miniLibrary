@@ -1,10 +1,11 @@
 # miniLibrary
-**A program that represents a mini library.** 
+**A program that represents a mini library** 
 
-This is the first web dev project with Javascript that I worked on.
+Made wih: HTML, CSS, vanilla Javascript
+
 You can view it here: [claireha.github.io/miniLibrary](https://claireha.github.io/miniLibrary/)
 
 **Credits:** 
-* Font Awesome
+* [Font Awesome Icons](https://fontawesome.com/)
 * [Book Cover Illustrations](https://mymodernmet.com/rock-paper-books-classics-covers/)
 * [Color Scheme](https://visme.co/blog/website-color-schemes/)
