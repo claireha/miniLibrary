@@ -38,10 +38,10 @@ var book11 = {title:"The Wonderful Wizard of Oz", author:"L. Frank Baum", reques
 // Hardcoded users 
 var mike = {name:"mike", books:[book1]};
 var claire = {name:"claire", books:[]};
-var karen = {name:"karen", books:[book2, book7]};
-var harley = {name:"harley", books:[]};
+var karen = {name:"karen", books:[book7]};
+var harley = {name:"harley", books:[book2]};
 book1.requestedBy.push(karen);
-book1.requestedBy.push(mike);
+book1.requestedBy.push(harley);
 
 
 // Hardcoded array for users and library Books
