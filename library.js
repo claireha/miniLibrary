@@ -23,21 +23,30 @@ var books = document.querySelectorAll(".books");
 // Hardcoded books
 var book1 = {title:"Dracula", author:"Bram Stoker", requestedBy:[], location:"Checked Out", checkedOutBy: "mike", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/NqQICa118fuVFZGBcmvj_rockpaperbooks2.png"};
 var book2 = {title:"20,000 Leagues Under the Sea", author:"Jules Verne", requestedBy:[], location:"Checked Out", checkedOutBy: "karen", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/VrF4oKsKXgppOL9-0CMQ_rockpaperbooks3.png"};
-var book3 = {title:"The Art of War", author:"Sun Tzu", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/bAdLK-I9VWXA9otlXyWL_rockpaperbooks5.png"};
-var book4 = {title:"Moby Dick", author:"Herman Melville", requestedBy:[], location:"Checked Out", checkedOutBy: "karen", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/5YIh-o2i55cRUR8KfsNX_rockpaperbooks10.png"};
-var book5 = {title:"The Odyssey", author:"Homer", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/7vca9hzJahOi2CuQ3E9y_rockpaperbooks14.png"};
+var book3 = {title:"Time Machine", author:"H.G. Wells", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/O-GtmQ4EVp-4zEif--bH_rockpaperbooks12.png"};
+var book4 = {title:"The Art of War", author:"Sun Tzu", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/bAdLK-I9VWXA9otlXyWL_rockpaperbooks5.png"};
+var book5 = {title:"Peter Pan", author:"James Matthew Barrie", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/4PFoSAOaRZpkmMDdxSYA_rockpaperbooks15.png"};
+var book6 = {title:"Around The World in 80 Days", author:"Jules Verne", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/8Xm7KKJiEt8lD2Y1469s_rockpaperbooks13.png"};
+var book7 = {title:"Moby Dick", author:"Herman Melville", requestedBy:[], location:"Checked Out", checkedOutBy: "karen", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/5YIh-o2i55cRUR8KfsNX_rockpaperbooks10.png"};
+var book8 = {title:"Don Quixote", author:"Miguel de Cervantes", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/bsGyOSc-J9Xny5ChSFWQ_rockpaperbooks7.png"};
+var book9 = {title:"The Odyssey", author:"Homer", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/7vca9hzJahOi2CuQ3E9y_rockpaperbooks14.png"};
+var book10 = {title:"The Adventure of Sherlock Holmes", author:"Arthur Conan Doyle", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/oEMh3U6uTOqbFZRYq-HY_rockpaperbooks6.png"};
+var book11 = {title:"The Wonderful Wizard of Oz", author:"L. Frank Baum", requestedBy:[], location:"Library", checkedOutBy: "claire", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/aMGvOex15deEtnm7PQan_rockpaperbooks4.png"};
+
+
+
 
 // Hardcoded users 
 var mike = {name:"mike", books:[book1]};
 var claire = {name:"claire", books:[]};
-var karen = {name:"karen", books:[book4, book2]};
+var karen = {name:"karen", books:[book2, book7]};
 var harley = {name:"harley", books:[]};
 book1.requestedBy.push(karen);
 
 
 // Hardcoded array for users and library Books
 var users = [mike, claire, karen, harley];
-var libraryBooks = [book1,book2,book3,book4,book5]
+var libraryBooks = [book1,book2,book3,book4,book5,book6,book7,book8,book9,book10,book11]
 
 
 init(); 
@@ -120,8 +129,6 @@ function addBookListener(){
 			currentBook = filterValue(libraryBooks,"title",this.textContent);
 			showBookDetails()
 
-			
-			
 		})
 	}
 }
@@ -174,7 +181,7 @@ function getWaitlist(){
 	var waitlist = ""
 
 	for(var i=0; i<currentBook.requestedBy.length; i++){
-		waitlist += currentBook.requestedBy[i].name;
+		waitlist = currentBook.requestedBy[i].name;
 	}
 
 	return waitlist
@@ -197,14 +204,27 @@ function checkoutBook(){
 
     alert('Book successfully checked out!')
 
-
 }
 
 function requestBook(){
-	alert('let us requestt a book')
-	reset();
-    menuButtons[1].classList.add("selected")
-	displayMyBooks();
+
+
+	// if user already on waitlist, send alert
+	if(currentBook.requestedBy.includes(filterValue(users,"name",username))){
+		alert('You\'re already on the waitlist!')
+	} else if (currentBook.checkedOutBy === username) {
+		alert('You currently have this book!')
+	} else {
+		currentBook.requestedBy.push(filterValue(users,"name",username));
+		reset();
+	    menuButtons[1].classList.add("selected")
+	    displayLibraryBooks()
+	    showBookDetails()
+	    alert('You were successfully added to the waitlist')
+
+	}
+
+    
 
 }
 
