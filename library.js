@@ -21,7 +21,7 @@ var books = document.querySelectorAll(".books");
 
 // Hardcoded books
 var book1 = {title:"Dracula", author:"Bram Stoker", requestedBy:[], location:"Checked Out", checkedOutBy: "mike", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/NqQICa118fuVFZGBcmvj_rockpaperbooks2.png"};
-var book2 = {title:"20,000 Leagues Under the Sea", author:"Jules Verne", requestedBy:[], location:"Checked Out", checkedOutBy: "karen", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/VrF4oKsKXgppOL9-0CMQ_rockpaperbooks3.png"};
+var book2 = {title:"20,000 Leagues Under the Sea", author:"Jules Verne", requestedBy:[], location:"Checked Out", checkedOutBy: "harley", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/VrF4oKsKXgppOL9-0CMQ_rockpaperbooks3.png"};
 var book3 = {title:"Time Machine", author:"H.G. Wells", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/O-GtmQ4EVp-4zEif--bH_rockpaperbooks12.png"};
 var book4 = {title:"The Art of War", author:"Sun Tzu", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/bAdLK-I9VWXA9otlXyWL_rockpaperbooks5.png"};
 var book5 = {title:"Peter Pan", author:"James Matthew Barrie", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/4PFoSAOaRZpkmMDdxSYA_rockpaperbooks15.png"};
@@ -41,6 +41,7 @@ var claire = {name:"claire", books:[]};
 var karen = {name:"karen", books:[book2, book7]};
 var harley = {name:"harley", books:[]};
 book1.requestedBy.push(karen);
+book1.requestedBy.push(mike);
 
 
 // Hardcoded array for users and library Books
@@ -183,10 +184,13 @@ function getWaitlist(){
 		waitlist = currentBook.requestedBy[i].name;
 	}
 
-	return waitlist
+	return waitlist;
 }
 
 function checkoutBook(){
+
+	validateUser()
+	return;
 
 	var userBooks = filterValue(users,"name",username).books // array of the books for the user 
 	userBooks.push(currentBook)
@@ -214,6 +218,7 @@ function validateUser(){
 function requestBook(){
 
 	validateUser();
+	return; 
 
 	// if user already on waitlist, send alert
 	if(currentBook.requestedBy.includes(filterValue(users,"name",username))){
