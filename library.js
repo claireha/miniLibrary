@@ -120,10 +120,11 @@ function addBookListener(){
 			bodyText.innerHTML = "<h2>" + currentBook.title + "</h2>"
 			bodyText.innerHTML += "<br><strong>Title</strong>: " + currentBook.title;
 			bodyText.innerHTML += "<br><strong>Author</strong>: " + currentBook.author;
-			bodyText.innerHTML += "<br><strong>Current Location</strong>: " + currentBook.location +"<br><br>";
+			bodyText.innerHTML += "<br><strong>Current Location</strong>: " + currentBook.location;
 
 			displayCheckOrRequest();
 
+			bodyText.innerHTML += "<br><br>";
 			bodyImage.innerHTML  = "<br><br><img src='" + currentBook.img +  "'></div>";
 			
 		})
@@ -140,9 +141,7 @@ function displayCheckOrRequest(){
 		var button = document.createElement("button");
 		button.textContent = "Return?";
 		bodyAction.appendChild(button)
-		button.addEventListener("click", function() {
-			  alert('i worked');
-			});
+		button.addEventListener("click", returnBook);
 		
 	} else if(menuButtons[1].classList.contains("selected")){
 		if(currentBook.location === 'Library'){
@@ -154,6 +153,7 @@ function displayCheckOrRequest(){
 			});
 		} else {
 			var button = document.createElement("button");
+			bodyText.innerHTML += "<br><strong>Checked Out By</strong>: " + currentBook.checkedOutBy;
 			button.innerHTML = "Request?";
 			bodyAction.appendChild(button)
 			button.addEventListener("click", function() {
@@ -161,9 +161,33 @@ function displayCheckOrRequest(){
 			});
 		}
 	}
+}
+
+
+function returnBook(){
 
 	
+
+	// Remove the book from ther user's array of books
+	var userBooks = filterValue(users,"name",username).books // array of the books for the user 
+	var index = userBooks.indexOf(currentBook)
+	if (index > -1) {
+        userBooks.splice(index, 1);
+    }
+
+    reset();
+    menuButtons[2].classList.add("selected")
+	displayMyBooks();
+
+
+    // change location and checked out by param for the book object
+    console.log(libraryBooks); // array of lib books
+    var index = libraryBooks.indexOf(currentBook)
+    libraryBooks[index].location = "Library"; 
+    libraryBooks[index].checkedOutBy = "Library";
 }
+	
+
 
 function reset(){
 	secondaryButtonsDiv.innerHTML = "";
