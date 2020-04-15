@@ -262,20 +262,49 @@ function reset(){
 	}
 }
 
+function getCheckedOutBooks(){
+
+	checkedOutBooks = []
+
+	for(var i = 0; i < libraryBooks.length; i++){
+		if(libraryBooks[i].checkedOutBy==="Library"){
+			checkedOutBooks.push(libraryBooks[i])
+		}
+	}
+
+	return(checkedOutBooks)
+
+}
+
+function getAvailableBooks(){
+	
+	availableBooks = []
+
+	for(var i = 0; i < libraryBooks.length; i++){
+		if(libraryBooks[i].checkedOutBy!="Library"){
+			availableBooks.push(libraryBooks[i])
+		}
+	}
+
+	return(availableBooks)
+}
+
 function displayLibraryBooks(){ 
 
 	secondaryButtonsDiv.innerHTML += "<p>Available for Check Out:</p>"
 
-	for(var i=0; i < libraryBooks.length; i++){
-		if(libraryBooks[i].checkedOutBy==="Library"){
-			secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"fas fa-book\"></i>"+libraryBooks[i].title+"</button>";
-		}
+	checkedOutBooks = getCheckedOutBooks(); 
+	availableBooks = getAvailableBooks(); 
+
+
+	for(var i=0; i < checkedOutBooks.length; i++){
+		secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"fas fa-book\"></i>"+checkedOutBooks[i].title+"</button>";
 	}
 
 	secondaryButtonsDiv.innerHTML += "<br><p>Checked Out But Waitlist Available:</p>"
 
-	for(var i=0; i < libraryBooks.length; i++){
-		secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"far fa-times-circle\"></i>"+libraryBooks[i].title+"</button>";	
+	for(var i=0; i < availableBooks.length; i++){
+		secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"far fa-times-circle\"></i>"+availableBooks[i].title+"</button>";	
 	}
 
 	addBookListener();
