@@ -1,5 +1,6 @@
 // Declare Login/Sign Up Variables 
-var username = document.querySelector("#usernameForm").elements.namedItem("username").value;
+var username = 'karen'
+// var username = document.querySelector("#usernameForm").elements.namedItem("username").value;
 var usernameSubmit = document.querySelector("button");
 var usernameMessage = document.querySelector("#usernameMessage");
 var usernameForm = document.querySelector("#usernameForm");
@@ -31,6 +32,7 @@ var mike = {name:"mike", books:[book1]};
 var claire = {name:"claire", books:[]};
 var karen = {name:"karen", books:[book4, book2]};
 var harley = {name:"harley", books:[]};
+book1.requestedBy.push(karen);
 
 
 // Hardcoded array for users and library Books
@@ -116,21 +118,25 @@ function addBookListener(){
 		books[i].addEventListener('click',function(){
 
 			currentBook = filterValue(libraryBooks,"title",this.textContent);
+			showBookDetails()
 
-			bodyText.innerHTML = "<h2>" + currentBook.title + "</h2>"
-			bodyText.innerHTML += "<br><strong>Title</strong>: " + currentBook.title;
-			bodyText.innerHTML += "<br><strong>Author</strong>: " + currentBook.author;
-			bodyText.innerHTML += "<br><strong>Current Location</strong>: " + currentBook.location;
-
-			displayCheckOrRequest();
-
-			bodyText.innerHTML += "<br><br>";
-			bodyImage.innerHTML  = "<br><br><img src='" + currentBook.img +  "'></div>";
+			
 			
 		})
 	}
 }
 
+function showBookDetails(){
+	bodyText.innerHTML = "<h2>" + currentBook.title + "</h2>"
+	bodyText.innerHTML += "<br><strong>Title</strong>: " + currentBook.title;
+	bodyText.innerHTML += "<br><strong>Author</strong>: " + currentBook.author;
+	bodyText.innerHTML += "<br><strong>Current Location</strong>: " + currentBook.location;
+
+	displayCheckOrRequest();
+
+	bodyText.innerHTML += "<br><br>";
+	bodyImage.innerHTML  = "<br><br><img src='" + currentBook.img +  "'></div>";
+}
 
 
 function displayCheckOrRequest(){
@@ -148,25 +154,61 @@ function displayCheckOrRequest(){
 			var button = document.createElement("button");
 			button.innerHTML = "Check Out?";
 			bodyAction.appendChild(button)
-			button.addEventListener("click", function() {
-			  console.log('i worked');
-			});
+			button.addEventListener("click", checkoutBook);
 		} else {
 			var button = document.createElement("button");
 			bodyText.innerHTML += "<br><strong>Checked Out By</strong>: " + currentBook.checkedOutBy;
+			bodyText.innerHTML += "<br><strong>Next on Waitlist</strong>: " + getWaitlist();
 			button.innerHTML = "Request?";
 			bodyAction.appendChild(button)
-			button.addEventListener("click", function() {
-			  console.log('i worked');
-			});
+			button.addEventListener("click", requestBook);
 		}
 	}
 }
 
+function getWaitlist(){
+	if(currentBook.requestedBy.length <1){
+		return("No waitlist!")
+	}
+
+	var waitlist = ""
+
+	for(var i=0; i<currentBook.requestedBy.length; i++){
+		waitlist += currentBook.requestedBy[i].name;
+	}
+
+	return waitlist
+}
+
+function checkoutBook(){
+	
+	var userBooks = filterValue(users,"name",username).books // array of the books for the user 
+	userBooks.push(currentBook)
+
+    // change location and checked out by param for the book object
+    var index = libraryBooks.indexOf(currentBook)
+    libraryBooks[index].location = "Checked Out"; 
+    libraryBooks[index].checkedOutBy = username;
+
+    reset();
+    menuButtons[1].classList.add("selected")
+    displayLibraryBooks()
+    showBookDetails()
+
+    alert('Book successfully checked out!')
+
+
+}
+
+function requestBook(){
+	alert('let us requestt a book')
+	reset();
+    menuButtons[1].classList.add("selected")
+	displayMyBooks();
+
+}
 
 function returnBook(){
-
-	
 
 	// Remove the book from ther user's array of books
 	var userBooks = filterValue(users,"name",username).books // array of the books for the user 
@@ -175,16 +217,16 @@ function returnBook(){
         userBooks.splice(index, 1);
     }
 
+    // change location and checked out by param for the book object
+    var index = libraryBooks.indexOf(currentBook)
+    libraryBooks[index].location = "Library"; 
+    libraryBooks[index].checkedOutBy = "Library";
+
     reset();
     menuButtons[2].classList.add("selected")
 	displayMyBooks();
 
-
-    // change location and checked out by param for the book object
-    console.log(libraryBooks); // array of lib books
-    var index = libraryBooks.indexOf(currentBook)
-    libraryBooks[index].location = "Library"; 
-    libraryBooks[index].checkedOutBy = "Library";
+    alert('Book successfully returned!')
 }
 	
 
