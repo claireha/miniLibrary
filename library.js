@@ -30,19 +30,15 @@ var book7 = {title:"Moby Dick", author:"Herman Melville", requestedBy:[], locati
 var book8 = {title:"Don Quixote", author:"Miguel de Cervantes", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/bsGyOSc-J9Xny5ChSFWQ_rockpaperbooks7.png"};
 var book9 = {title:"The Odyssey", author:"Homer", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/7vca9hzJahOi2CuQ3E9y_rockpaperbooks14.png"};
 var book10 = {title:"The Adventure of Sherlock Holmes", author:"Arthur Conan Doyle", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/oEMh3U6uTOqbFZRYq-HY_rockpaperbooks6.png"};
-var book11 = {title:"The Wonderful Wizard of Oz", author:"L. Frank Baum", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/aMGvOex15deEtnm7PQan_rockpaperbooks4.png"};
-
-
-
+var book11 = {title:"The Wonderful Wizard of Oz", author:"L. Frank Baum", requestedBy:[], location:"Checked Out", checkedOutBy: "karen", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/aMGvOex15deEtnm7PQan_rockpaperbooks4.png"};
 
 // Hardcoded users 
 var mike = {name:"mike", books:[book1]};
 var claire = {name:"claire", books:[]};
-var karen = {name:"karen", books:[book7]};
+var karen = {name:"karen", books:[book7, book11]};
 var harley = {name:"harley", books:[book2]};
 book1.requestedBy.push(karen);
 book1.requestedBy.push(harley);
-
 
 // Hardcoded array for users and library Books
 var users = [mike, claire, karen, harley];
@@ -61,7 +57,9 @@ function filterValue(obj, key, value) {
 	return obj.find(function(v){ return v[key] === value});
 }
 
+
 function addLoginListener(){
+	// Adds event listener on the sign up + new user form 
 	usernameForm.addEventListener('submit', function(){
 		username = document.querySelector("#usernameForm").elements.namedItem("username").value;
 		if(filterValue(users,"name",username).name === username){
@@ -77,6 +75,7 @@ function addLoginListener(){
 }
 
 function createNewUser(){
+	// Prompts user for username and creates new users 
 	signupButton.addEventListener('click',function(){
 			var newUsername= prompt("Please enter your username", "");
 			var newUser = {name:newUsername, books:[]};
@@ -87,6 +86,7 @@ function createNewUser(){
 }
 
 function addmenuButtonsListener(){
+	// adds listners to the menu buttons and calls relevant functions 
 	for(var i=0; i < menuButtons.length; i++){
 		menuButtons[i].addEventListener('click',function(){
 			if(this.textContent==='View Library Catalog'){
@@ -121,7 +121,7 @@ function addmenuButtonsListener(){
 
 
 function addBookListener(){
-
+	// crerates listener for book 
 	books = document.querySelectorAll(".books");
 	for(var i=0; i < books.length; i++){
 		books[i].addEventListener('click',function(){
@@ -134,6 +134,7 @@ function addBookListener(){
 }
 
 function showBookDetails(){
+	// Shows details for the book in the body 
 	bodyText.innerHTML = "<h2>" + currentBook.title + "</h2>"
 	bodyText.innerHTML += "<br><strong>Title</strong>: " + currentBook.title;
 	bodyText.innerHTML += "<br><strong>Author</strong>: " + currentBook.author;
@@ -147,7 +148,8 @@ function showBookDetails(){
 
 
 function displayCheckOrRequest(){
-
+	// Displays Check Out or Request button based on book stattus 
+	// Adds event listeners and calls the relevant function
 	bodyAction.innerHTML = "";
 
 	if(menuButtons[2].classList.contains("selected")){
@@ -174,6 +176,7 @@ function displayCheckOrRequest(){
 }
 
 function getWaitlist(){
+	// Gets users on waitlist for given book
 	if(currentBook.requestedBy.length <1){
 		return("No waitlist!")
 	}
@@ -188,6 +191,7 @@ function getWaitlist(){
 }
 
 function checkoutBook(){
+	// Checks out book 
 
 	validateUser()
 	return;
@@ -210,8 +214,9 @@ function checkoutBook(){
 }
 
 function validateUser(){
+	// Validates that user is logged in, otherwise creates alert
 	if(username === "" ){
-		alert('Please login to do that. You can make a new user or login using \'Karen\'')
+		alert('Please login to do that. You can make a new user or login using \'karen\'')
 	}
 }
 
