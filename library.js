@@ -65,7 +65,7 @@ function addLoginListener(){
 		if(filterValue(users,"name",username).name === username){
 			usernameMessage.textContent = "Welcome back, " + username + "!";
 		} else {
-			usernameMessage.textContent = "Welcome, looks like you're new!";
+			usernameMessage.textContent = "Please register!";
 		}
 		event.preventDefault();
 	})
@@ -193,8 +193,9 @@ function getWaitlist(){
 function checkoutBook(){
 	// Checks out book 
 
-	validateUser()
-	return;
+	if(validateUser()===true){
+		return;
+	}
 
 	var userBooks = filterValue(users,"name",username).books // array of the books for the user 
 	userBooks.push(currentBook)
@@ -222,8 +223,9 @@ function validateUser(){
 
 function requestBook(){
 
-	validateUser();
-	return; 
+	if(validateUser()===true){
+		return;
+	}
 
 	// if user already on waitlist, send alert
 	if(currentBook.requestedBy.includes(filterValue(users,"name",username))){
@@ -240,13 +242,9 @@ function requestBook(){
 
 	}
 
-    
-
 }
 
 function returnBook(){
-
-	validateUser();
 
 	// Remove the book from ther user's array of books
 	var userBooks = filterValue(users,"name",username).books // array of the books for the user 
