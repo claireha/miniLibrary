@@ -30,7 +30,7 @@ var book7 = {title:"Moby Dick", author:"Herman Melville", requestedBy:[], locati
 var book8 = {title:"Don Quixote", author:"Miguel de Cervantes", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/bsGyOSc-J9Xny5ChSFWQ_rockpaperbooks7.png"};
 var book9 = {title:"The Odyssey", author:"Homer", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/7vca9hzJahOi2CuQ3E9y_rockpaperbooks14.png"};
 var book10 = {title:"The Adventure of Sherlock Holmes", author:"Arthur Conan Doyle", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/oEMh3U6uTOqbFZRYq-HY_rockpaperbooks6.png"};
-var book11 = {title:"The Wonderful Wizard of Oz", author:"L. Frank Baum", requestedBy:[], location:"Library", checkedOutBy: "claire", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/aMGvOex15deEtnm7PQan_rockpaperbooks4.png"};
+var book11 = {title:"The Wonderful Wizard of Oz", author:"L. Frank Baum", requestedBy:[], location:"Library", checkedOutBy: "Library", img: "https://mymodernmet.com/wp/wp-content/uploads/archive/aMGvOex15deEtnm7PQan_rockpaperbooks4.png"};
 
 
 
@@ -187,7 +187,7 @@ function getWaitlist(){
 }
 
 function checkoutBook(){
-	
+
 	var userBooks = filterValue(users,"name",username).books // array of the books for the user 
 	userBooks.push(currentBook)
 
@@ -205,8 +205,15 @@ function checkoutBook(){
 
 }
 
+function validateUser(){
+	if(username === "" ){
+		alert('Please login to do that. You can make a new user or login using \'Karen\'')
+	}
+}
+
 function requestBook(){
 
+	validateUser();
 
 	// if user already on waitlist, send alert
 	if(currentBook.requestedBy.includes(filterValue(users,"name",username))){
@@ -228,6 +235,8 @@ function requestBook(){
 }
 
 function returnBook(){
+
+	validateUser();
 
 	// Remove the book from ther user's array of books
 	var userBooks = filterValue(users,"name",username).books // array of the books for the user 
