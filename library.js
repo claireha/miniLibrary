@@ -265,13 +265,20 @@ function reset(){
 
 function displayLibraryBooks(){ 
 
+	secondaryButtonsDiv.innerHTML += "<p>Available for Check Out:</p>"
+
 	for(var i=0; i < libraryBooks.length; i++){
 		if(libraryBooks[i].checkedOutBy==="Library"){
 			secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"fas fa-book\"></i>"+libraryBooks[i].title+"</button>";
-		} else {
-			secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"far fa-times-circle\"></i>"+libraryBooks[i].title+"</button>";
 		}
 	}
+
+	secondaryButtonsDiv.innerHTML += "<br><p>Checked Out But Waitlist Available:</p>"
+
+	for(var i=0; i < libraryBooks.length; i++){
+		secondaryButtonsDiv.innerHTML += "<button class=\"secondaryButtons books\"><i class=\"far fa-times-circle\"></i>"+libraryBooks[i].title+"</button>";	
+	}
+
 	addBookListener();
 
 }
