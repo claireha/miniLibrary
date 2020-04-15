@@ -1,7 +1,7 @@
 # miniLibrary
 **A program that represents a mini library** 
 
-Made wih: HTML, CSS, vanilla Javascript
+Made with: HTML, CSS, vanilla Javascript
 
 You can view it here: [claireha.github.io/miniLibrary](https://claireha.github.io/miniLibrary/)
 
